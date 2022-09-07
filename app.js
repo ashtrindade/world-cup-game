@@ -2,7 +2,7 @@ const tileDisplay = document.querySelector('.tile-container')
 const keyboard = document.querySelector('.key-container')
 const messageDisplay = document.querySelector('.message-container')
 
-// Dados
+// Data
 const worldCups = [
     {
         "id": 1,
@@ -111,23 +111,23 @@ const worldCups = [
     }
 ]
 
-// Get id aleatório
+// Get random id
 let id = worldCups[Math.floor(Math.random() * worldCups.length)].id
 let cup = worldCups.findIndex((i) => i.id == id)
 
-// Get dados a partir do id
+// Get data from id
 let winner = worldCups[cup].winner
 let year = worldCups[cup].year
 
-// Push 'winner' para o front no item 'h2'
+// Push 'winner' to 'h2'
 const getWinner = () => {
     document.getElementById("winner").innerHTML = `Em que ano ${winner} venceu?`;
 }
 
-// Palavra chave do jogo
+// Keyword
 const wordle = year
 
-// Teclas
+// Keys
 const keys = [
     '1',
     '2',
@@ -143,19 +143,19 @@ const keys = [
     '←',
 ]
 
-// Espaço para a resposta
+// Rows for anwser
 const guessRows = [
     ['', '', '', ''],
     ['', '', '', ''],
     ['', '', '', ''],
 ]
 
-// Estado de início
+// Init
 let currentRow = 0
 let currentTile = 0
 let isGameOver = false
 
-// Criar divs pra respostas
+// For each row
 guessRows.forEach((guessRow, guessRowIndex) => {
     const rowElement = document.createElement('div')
     rowElement.setAttribute('id', 'guessRow-' + guessRowIndex)
@@ -168,7 +168,7 @@ guessRows.forEach((guessRow, guessRowIndex) => {
     tileDisplay.append(rowElement)
 })
 
-// Criar div para teclas 
+// For each key
 keys.forEach(key => {
     const buttonElement = document.createElement('button')
     buttonElement.textContent = key
@@ -177,7 +177,7 @@ keys.forEach(key => {
     keyboard.append(buttonElement)
 })
 
-// Eventos de clique
+// Handle Click
 const handleClick = (letter) => {
     if (!isGameOver) {
         if (letter === '←') {
@@ -192,7 +192,7 @@ const handleClick = (letter) => {
     }
 }
 
-// Adicionar letras/números
+// Add leter
 const addLetter = (letter) => {
     if (currentTile < 4 && currentRow < 3) {
         const tile = document.getElementById('guessRow-' + currentRow + '-tile-' + currentTile)
@@ -203,7 +203,7 @@ const addLetter = (letter) => {
     }
 }
 
-// Apagar letras/números
+// Delete letter
 const deleteLetter = () => {
     if (currentTile > 0) {
         currentTile--
@@ -214,7 +214,7 @@ const deleteLetter = () => {
     }
 }
 
-// Validar resposta
+// Validate anwser
 const checkRow = () => {
     const guess = guessRows[currentRow].join('')
 
@@ -240,14 +240,14 @@ const checkRow = () => {
     }
 }
 
-// Mensagem com resultado
+// End message
 const showMessage = (message) => {
     const messageElement = document.createElement('p')
     messageElement.textContent = message
     messageDisplay.append(messageElement)
 }
 
-// Mensagem 'Jogar Novamente'
+// Try again message
 function tryAgain() {
     const buttonElement = document.createElement('button')
     buttonElement.setAttribute('onclick', 'reload()')
@@ -260,13 +260,13 @@ function reload() {
     window.location.reload();
 }
 
-// Adicionar cor nas divs
+// Colors
 const addColorToKey = (keyLetter, color) => {
     const key = document.getElementById(keyLetter)
     key.classList.add(color)
 }
 
-// Efeito girar teclas
+// Animation
 const flipTile = () => {
     const rowTiles = document.querySelector('#guessRow-' + currentRow).childNodes
     let checkWordle = wordle
